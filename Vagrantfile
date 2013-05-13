@@ -25,9 +25,9 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'postgresql::server_dev'
     chef.add_recipe 'postgresql::postgis'
 
-    # chef.add_recipe 'ruby_build'
-    # chef.add_recipe 'rbenv::user'
-    # chef.add_recipe 'redis'
+    chef.add_recipe 'ruby_build'
+    chef.add_recipe 'rbenv::user'
+    chef.add_recipe 'redis'
     chef.json = {
       'postgresql' => {
         "version" => "9.1",
