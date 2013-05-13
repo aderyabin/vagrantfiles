@@ -28,6 +28,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'ruby_build'
     chef.add_recipe 'rbenv::user'
     chef.add_recipe 'redis'
+    chef.add_recipe 'oh_my_zsh'
     chef.json = {
       'postgresql' => {
         "version" => "9.1",
@@ -54,6 +55,13 @@ Vagrant.configure("2") do |config|
             }
           }
         ]
+      },
+      'oh_my_zsh' => {
+        'users' => [{
+          :login => 'vagrant',
+          :theme => 'mortalscumbag',
+          :plugins => ['gem', 'git', 'rails3', 'redis-cli', 'ruby', 'heroku', 'rake', 'rbenv', 'capistrano']
+        }]
       }
     }
   end

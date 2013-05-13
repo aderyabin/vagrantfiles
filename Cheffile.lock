@@ -50,10 +50,19 @@ GIT
     postgresql (0.10.1)
       apt (>= 0.0.0)
 
+GIT
+  remote: https://github.com/shingara/oh-my-zsh-chef
+  ref: master
+  sha: 7da60eca90b9a0b2c2d42b9af02364ab04421043
+  specs:
+    oh_my_zsh (0.0.1)
+      git (>= 0.0.0)
+
 DEPENDENCIES
   apt (>= 0)
   git (>= 0)
   imagemagick (>= 0)
+  oh_my_zsh (>= 0)
   postgresql (>= 0)
   rbenv (>= 0)
   redis (>= 0)
