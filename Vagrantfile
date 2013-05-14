@@ -29,6 +29,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'rbenv::user'
     chef.add_recipe 'redis::install_from_package'
     chef.add_recipe 'oh_my_zsh'
+    chef.add_recipe 'locale'
     chef.json = {
       'postgresql' => {
         "version" => "9.1",

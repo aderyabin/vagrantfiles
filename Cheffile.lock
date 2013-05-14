@@ -1,23 +1,31 @@
 SITE
   remote: http://community.opscode.com/api/v1
   specs:
-    apt (1.9.0)
-    build-essential (1.3.4)
+    apt (1.9.2)
+    build-essential (1.4.0)
     chef_handler (1.1.4)
     dmg (1.1.0)
-    git (2.3.0)
+    git (2.5.0)
       build-essential (>= 0.0.0)
       dmg (>= 0.0.0)
-      runit (~> 1.0)
+      runit (>= 1.0)
       windows (>= 0.0.0)
       yum (>= 0.0.0)
     imagemagick (0.2.2)
-    runit (1.1.0)
+    runit (1.1.4)
       build-essential (>= 0.0.0)
-    sysctl (0.1.0)
-    windows (1.8.4)
+      yum (>= 0.0.0)
+    sysctl (0.3.1)
+    windows (1.8.10)
       chef_handler (>= 0.0.0)
     yum (2.2.0)
+
+GIT
+  remote: https://github.com/deepak/chef-locale
+  ref: master
+  sha: 2669bd937f589b6ad542da4eb1baa42cfe251030
+  specs:
+    locale (0.0.2)
 
 GIT
   remote: https://github.com/fnichol/chef-rbenv
@@ -62,6 +70,7 @@ DEPENDENCIES
   apt (>= 0)
   git (>= 0)
   imagemagick (>= 0)
+  locale (>= 0)
   oh_my_zsh (>= 0)
   postgresql (>= 0)
   rbenv (>= 0)
