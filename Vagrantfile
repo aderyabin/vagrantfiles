@@ -4,17 +4,15 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "omnibus"
-  config.vm.box_url = "https://s3.amazonaws.com/gsc-vagrant-boxes/ubuntu-12.04-omnibus-chef.box"
-  config.vm.network :private_network, ip: "10.255.255.10"
-  config.ssh.forward_agent = true
-  config.vm.synced_folder "~/code", "/code", :nfs => true
+  config.vm.box = "opscode_ubuntu-12.04_chef-11.4.4"
+  config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.4.4.box"
 
-  config.vm.network :forwarded_port, guest: 4000, host: 4000
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
-  config.vm.network :forwarded_port, guest: 4567, host: 4567
-  config.vm.network :forwarded_port, guest: 5432, host: 5432
-  config.vm.network :forwarded_port, guest: 9292, host: 9292
+  config.vm.network :private_network, ip: "10.255.255.10"
+  config.vm.synced_folder "~/code", "/code"#, :nfs => true
+
+  [4000, 3000, 4567, 5432, 9292].each do |port|
+    config.vm.network :forwarded_port, guest: port, host: port
+  end
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks"]
@@ -23,7 +21,6 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'postgresql::server'
     chef.add_recipe 'postgresql::contrib'
     chef.add_recipe 'postgresql::server_dev'
-    chef.add_recipe 'postgresql::postgis'
 
     chef.add_recipe 'ruby_build'
     chef.add_recipe 'rbenv::user'
@@ -32,7 +29,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'locale'
     chef.json = {
       'postgresql' => {
-        "version" => "9.1",
+        "version" => "9.2",
         "users" => [
           {
             "username" => "vagrant",
@@ -46,13 +43,10 @@ Vagrant.configure("2") do |config|
       'rbenv' => {
         'user_installs' => [
           { 'user' => 'vagrant',
-            'rubies' => ['1.9.3-p392'],
-            'global' => '1.9.3-p392',
+            'rubies' => ['2.0.0-p247'],
+            'global' => '2.0.0-p247',
             'gems' => {
-              '1.9.3-p392' => [
-                { 'name'    => 'bundler' },
-                { 'name'    => 'pg' }
-              ]
+              '2.0.0-p247' => %w(bundler pg).collect{|gem_name| { 'name' => gem_name } }
             }
           }
         ]
